@@ -124,3 +124,5 @@ modules:
   - type: shell
     commands:
     - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
+  - type: patch
+    path: 0001-Don-t-use-screenshot-thumbnails-in-appdata-and-add-l.patch
