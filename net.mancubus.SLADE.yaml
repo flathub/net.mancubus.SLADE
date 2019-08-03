@@ -23,7 +23,7 @@ cleanup:
 - /app/lib/*.la
 - /app/lib/pkgconfig
 modules:
-    
+
 - shared-modules/glu/glu-9.0.0.json
 
 - name: wxWidgets
@@ -46,7 +46,7 @@ modules:
     commands:
     - cp -p /usr/share/automake-*/config.{sub,guess} .
     - autoconf -f -B build/autoconf_prepend-include
-    
+
 - name: fluidsynth
   buildsystem: cmake-ninja
   config-opts:
@@ -56,7 +56,7 @@ modules:
   - type: archive
     url: https://github.com/FluidSynth/fluidsynth/archive/v1.1.11.tar.gz
     sha256: da8878ff374d12392eecf87e96bad8711b8e76a154c25a571dd8614d1af80de8
-    
+
 - name: gzdoom
   buildsystem: cmake-ninja
   config-opts:
@@ -78,7 +78,7 @@ modules:
     dest-filename: gzdoom.sh
   post-install:
   - install -D gzdoom.sh /app/bin/gzdoom.sh
-  
+
 - name: freeimage
   no-autogen: true
   make-args:
@@ -91,7 +91,7 @@ modules:
     commands:
     - sed -i 's|-o root -g root ||' ./Makefile.gnu
     - sed -i 's|/usr|/app|' ./Makefile.gnu
-    
+
 - shared-modules/udev/udev-175.json
 
 - name: SFML
@@ -102,16 +102,16 @@ modules:
   - type: archive
     url: https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip
     sha256: bf1e0643acb92369b24572b703473af60bac82caf5af61e77c063b779471bb7f
-    
+
 - name: ftgl
   buildsystem: cmake-ninja
   sources:
   - type: archive
     url: https://github.com/frankheckenbach/ftgl/archive/2.3.1.tar.gz
     sha256: a9f03ebeef785365d6b5d7ecc07f1d349a7924cef267b868a62939b63f9bca19
-    
+
 - shared-modules/glew/glew.json
-    
+
 - name: slade
   buildsystem: cmake-ninja
   config-opts:
@@ -119,8 +119,8 @@ modules:
   - -DWX_GTK3=ON
   sources:
   - type: archive
-    url: https://github.com/sirjuddington/SLADE/archive/3.1.4.tar.gz
-    sha256: ee3acaaf27292c90a46eea509c3a56564e1339b3080a9648dc6edf5b731be57e
+    url: https://github.com/sirjuddington/SLADE/archive/3.1.5.tar.gz
+    sha256: ddab2c5bde9939dd74505fa4f021995e35f00ead0124ce19cbf72f908445aec4
   - type: shell
     commands:
     - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
