@@ -64,6 +64,7 @@ modules:
   config-opts:
   - -DCMAKE_BUILD_TYPE=RelWithDebInfo
   - -DSEND_ANON_STATS=OFF
+  - -DCMAKE_CXX_FLAGS="-msse3"
   sources:
   - type: git
     url: https://github.com/coelckers/gzdoom.git
