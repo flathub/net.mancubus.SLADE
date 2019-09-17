@@ -1,6 +1,8 @@
 app-id: net.mancubus.SLADE
 runtime: org.gnome.Platform
-runtime-version: '3.34'
+# 3.34 causes a GCC linking error for GZDoom
+# Must be resolved upstream first
+runtime-version: '3.32'
 sdk: org.gnome.Sdk
 command: slade
 finish-args:
@@ -62,12 +64,14 @@ modules:
   config-opts:
   - -DCMAKE_BUILD_TYPE=RelWithDebInfo
   - -DSEND_ANON_STATS=OFF
+  - -DCMAKE_CXX_FLAGS="-msse3"
   sources:
-  - type: archive
-    url: https://github.com/coelckers/gzdoom/archive/g3.7.2.tar.gz
-    sha256: 5fb57c83b733d77688b5809b3bd64ab87f0976f4e81d3bbac0ea0785a24646cc
+  - type: git
+    url: https://github.com/coelckers/gzdoom.git
+    tag: g4.2.1
+    commit: f586196f28ae099255ea15e9e69ac19b218f5cdf
   - type: file
-    url: https://github.com/coelckers/gzdoom/raw/g3.7.2/soundfont/gzdoom.sf2
+    url: https://github.com/coelckers/gzdoom/raw/g4.2.1/soundfont/gzdoom.sf2
     sha256: fca3e514b635a21789d4224e84865d2954a2a914d46b64aa8219ddb565c44869
   - type: shell
     commands:
@@ -119,10 +123,23 @@ modules:
   - -DWX_GTK3=ON
   sources:
   - type: archive
-    url: https://github.com/sirjuddington/SLADE/archive/3.1.5.tar.gz
-    sha256: ddab2c5bde9939dd74505fa4f021995e35f00ead0124ce19cbf72f908445aec4
+    url: https://github.com/sirjuddington/SLADE/archive/3.1.6.tar.gz
+    sha256: f435b5f51899d4f98dc767262e053dec0cc3ad415923a08e75e0fdad0a3168b5
   - type: shell
     commands:
     - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
   - type: patch
     path: 0001-Don-t-use-screenshot-thumbnails-in-appdata-and-add-l.patch
+    
+- name: zdbsp
+  buildsystem: cmake
+  no-make-install: true
+  build-commands:
+  - install -D zdbsp /app/bin/zdbsp
+  config-opts:
+  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+  sources:
+  - type: archive
+    url: https://github.com/rheit/zdbsp/archive/v1.19.tar.gz
+    sha256: 586303cbe1189c2b2239b9713fa8755c3f8aabf6f439d0dd29920b91fb236f29
+
