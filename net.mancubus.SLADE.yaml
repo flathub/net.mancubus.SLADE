@@ -1,8 +1,6 @@
 app-id: net.mancubus.SLADE
 runtime: org.gnome.Platform
-# 3.34 causes a GCC linking error for GZDoom
-# Must be resolved upstream first
-runtime-version: '3.32'
+runtime-version: '3.34'
 sdk: org.gnome.Sdk
 command: slade
 finish-args:
@@ -10,15 +8,19 @@ finish-args:
 - --socket=x11
 - --share=ipc
 - --socket=pulseaudio
+
+# Base editor requirements
+- --filesystem=home
+
+# GZDoom requirements
 - --env=DOOMWADDIR=/app/share/games/doom
 - --persist=.config/gzdoom
-- --filesystem=home
-- --share=network # required for start page
-# dconf:
-- --filesystem=xdg-run/dconf
-- --filesystem=~/.config/dconf:ro
-- --talk-name=ca.desrt.dconf
-- --env=DCONF_USER_CONFIG_DIR=.config/dconf
+
+# required for start page
+- --share=network
+
+# Migrate Dconf
+- --metadata=X-DConf=migrate-path=/net/mancubus/SLADE/
 cleanup:
 - /app/include
 - /app/lib/*.a
@@ -26,7 +28,7 @@ cleanup:
 - /app/lib/pkgconfig
 modules:
 
-- shared-modules/glu/glu-9.0.0.json
+- shared-modules/glu/glu-9.json
 
 - name: wxWidgets
   rm-configure: true
@@ -62,9 +64,10 @@ modules:
 - name: gzdoom
   buildsystem: cmake-ninja
   config-opts:
-  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-  - -DSEND_ANON_STATS=OFF
-  - -DCMAKE_CXX_FLAGS="-msse3"
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    # Required when targeting 32-bit x86
+    # Required for 19.08 using GCC C++ 9.2
+    - -DCMAKE_CXX_FLAGS=-msse3 -lrt
   sources:
   - type: git
     url: https://github.com/coelckers/gzdoom.git
@@ -123,13 +126,16 @@ modules:
   - -DWX_GTK3=ON
   sources:
   - type: archive
-    url: https://github.com/sirjuddington/SLADE/archive/3.1.6.tar.gz
-    sha256: f435b5f51899d4f98dc767262e053dec0cc3ad415923a08e75e0fdad0a3168b5
+    url: https://github.com/sirjuddington/SLADE/archive/3.1.7.tar.gz
+    sha256: abea38ff173b5494ddb50fa7996b6f1818f08c6992b119cb137bdacc63af3789
+    # Patch for fixing an error in the appdata.xml
+    # See: https://github.com/sirjuddington/SLADE/pull/1079
+  - type: patch
+    path: releases.patch
   - type: shell
     commands:
     - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
-  - type: patch
-    path: 0001-Don-t-use-screenshot-thumbnails-in-appdata-and-add-l.patch
+
     
 - name: zdbsp
   buildsystem: cmake
