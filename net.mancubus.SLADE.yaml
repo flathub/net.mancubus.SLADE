@@ -124,17 +124,12 @@ modules:
   - -DWX_GTK3=ON
   sources:
   - type: archive
-    url: https://github.com/sirjuddington/SLADE/archive/3.1.7.tar.gz
-    sha256: abea38ff173b5494ddb50fa7996b6f1818f08c6992b119cb137bdacc63af3789
-    # Patch for fixing an error in the appdata.xml
-    # See: https://github.com/sirjuddington/SLADE/pull/1079
-  - type: patch
-    path: releases.patch
+    url: https://github.com/sirjuddington/SLADE/archive/3.1.8.tar.gz
+    sha256: 8c6f44b0ad5867e04116d615f159f6e87592a5e48fd32f026e3ccaede65a9f12
   - type: shell
     commands:
     - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
 
-    
 - name: zdbsp
   buildsystem: cmake
   no-make-install: true
