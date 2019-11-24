@@ -142,6 +142,29 @@ modules:
     url: https://sources.debian.org/src/fluid-soundfont/3.1-5.1/FluidR3_GS.sf2/
     sha256: aadb5597fb95ea5f7d336999e3c68ad32aa6357027aed7d4d9ff0ac75f2988e6
 
+- name : acc
+  buildsystem: simple
+  build-commands:
+  - make
+  - install -Dm 774 acc /app/bin/acc
+  - install -Dm 774 acc.sh /app/bin/acc.sh
+  - install -Dm 644 zcommon.acs /app/bin/acc-include/zcommon.acs
+  - install -Dm 644 zdefs.acs /app/bin/acc-include/zdefs.acs
+  - install -Dm 644 zspecial.acs /app/bin/acc-include/zspecial.acs
+  - install -Dm 644 zwvars.acs /app/bin/acc-include/zwvars.acs
+  config-opts:
+  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+  sources:
+  - type: archive
+    url: https://zdoom.org/files/utils/acc/acc157src.zip
+    sha256: 53c4ac1bbdebf0b5303b7b1aa886edfa5a9be58348b905d9074cc0e43472fff7
+    # This script is a workaround for some very iffy file manager
+  - type: script
+    commands:
+    - acc "$@"
+    dest-filename: acc.sh
+
+
 - name: slade
   buildsystem: cmake-ninja
   config-opts:
