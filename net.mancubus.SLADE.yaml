@@ -173,8 +173,8 @@ modules:
   - -DWX_GTK3=ON
   sources:
   - type: archive
-    url: https://github.com/sirjuddington/SLADE/archive/3.1.9.tar.gz
-    sha256: 4b03081e3a6021ae8b921f70bae7522ae848bc58fb29d1098ba086cb230648e6
+    url: https://github.com/sirjuddington/SLADE/archive/3.1.10.tar.gz
+    sha256: 5e543d845432c5b310b942908e0a6e5c32b3aec71c087935e5cb7fbc0982b311
   - type: patch
     path: soundfont.patch
   - type: shell
