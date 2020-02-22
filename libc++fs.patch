@@ -1,0 +1,12 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index eaed3d4f..39be1774 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -184,7 +184,6 @@ target_link_libraries(slade
+ 	${FREETYPE_LIBRARIES}
+ 	${GLEW_LIBRARY}
+ 	${CURL_LIBRARIES}
+-	-lstdc++fs
+ )
+ 
+ if (WX_GTK3)
