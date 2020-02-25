@@ -176,12 +176,11 @@ modules:
   sources:
   - type: archive
     url: https://github.com/sirjuddington/SLADE/archive/3.1.10.tar.gz
-    sha256: 5e543d845432c5b310b942908e0a6e5c32b3aec71c087935e5cb7fbc0982b311
+    sha256: 6445627c10586011196e4305ffa030d16b5b97aa6a17e25c501e8df40369ec1f
   - type: patch
     path: soundfont.patch
-  - type: patch
-    path: libc++fs.patch
   - type: shell
     commands:
     - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
+
 
