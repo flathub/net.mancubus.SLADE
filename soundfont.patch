@@ -1,13 +1,14 @@
 diff --git a/src/Audio/MIDIPlayer.cpp b/src/Audio/MIDIPlayer.cpp
-index 67c0e489..0decf61b 100644
+index ea910143..f034c60c 100644
 --- a/src/Audio/MIDIPlayer.cpp
 +++ b/src/Audio/MIDIPlayer.cpp
-@@ -349,7 +349,7 @@ public:
- 		if (fs_soundfont_path.value.empty())
- 		{
- 			if (App::platform() == App::Platform::Linux)
--				fs_soundfont_path = "/usr/share/sounds/sf2/FluidR3_GM.sf2:/usr/share/sounds/sf2/FluidR3_GS.sf2";
-+				fs_soundfont_path = "/app/share/sounds/sf2/FluidR3_GM.sf2:/app/share/sounds/sf2/FluidR3_GS.sf2";
- 			else
- 				Log::warning(1, "No FluidSynth soundfont set, MIDI playback will not work");
- 		}
+@@ -82,7 +82,7 @@ MIDIPlayer::MIDIPlayer()
+ 	if (fs_soundfont_path == "")
+ 	{
+ #ifdef __WXGTK__
+-		fs_soundfont_path = "/usr/share/sounds/sf2/FluidR3_GM.sf2:/usr/share/sounds/sf2/FluidR3_GS.sf2";
++		fs_soundfont_path = "/app/share/sounds/sf2/FluidR3_GM.sf2:/app/share/sounds/sf2/FluidR3_GS.sf2";
+ #else // __WXGTK__
+ 		LOG_MESSAGE(1, "Warning: No fluidsynth soundfont set, MIDI playback will not work");
+ #endif // __WXGTK__
+
