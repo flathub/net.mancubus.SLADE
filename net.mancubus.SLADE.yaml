@@ -127,12 +127,21 @@ modules:
     url: https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip
     sha256: bf1e0643acb92369b24572b703473af60bac82caf5af61e77c063b779471bb7f
 
+# Upstream maintenance has stopped
+# https://github.com/frankheckenbach/ftgl/issues/10
 - name: ftgl
   buildsystem: cmake-ninja
+  config-opts:
+  - -DOpenGL_GL_PREFERENCE=GLVND
   sources:
   - type: archive
-    url: https://github.com/frankheckenbach/ftgl/archive/2.3.1.tar.gz
-    sha256: a9f03ebeef785365d6b5d7ecc07f1d349a7924cef267b868a62939b63f9bca19
+    url: https://github.com/frankheckenbach/ftgl/archive/v2.4.0.tar.gz
+    sha256: aa97da1c3442a8fd3941037655df18016d70b5266381c81d81e8b5335f196ea8
+  # Command required to work around existing bug
+  # https://github.com/frankheckenbach/ftgl/issues/11
+  - type: shell
+    commands:
+    - sed -i '29d' ./src/CMakeLists.txt
 
 - shared-modules/glew/glew.json
 
