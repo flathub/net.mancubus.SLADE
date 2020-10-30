@@ -47,6 +47,7 @@ modules:
   - --enable-webview
   - --enable-webviewwebkit
   - --with-opengl
+  - --with-sdl
   build-options:
     cxxflags: -std=c++11
   sources:
