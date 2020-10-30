@@ -10,11 +10,10 @@ finish-args:
 - --socket=pulseaudio
 
 # Base editor requirements
-- --filesystem=home
+- --filesystem=host
 
 # GZDoom requirements
 - --env=DOOMWADDIR=/app/share/games/doom
-- --persist=.config/gzdoom
 
 # Simpler way of preventing KDE related errors in GZDoom
 - --env=KDE_FULL_SESSION=false
@@ -56,15 +55,7 @@ modules:
     - cp -p /usr/share/automake-*/config.{sub,guess} .
     - autoconf -f -B build/autoconf_prepend-include
 
-- name: fluidsynth
-  buildsystem: cmake-ninja
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=Release
-  - -DLIB_SUFFIX=
-  sources:
-  - type: archive
-    url: https://github.com/FluidSynth/fluidsynth/archive/v1.1.11.tar.gz
-    sha256: da8878ff374d12392eecf87e96bad8711b8e76a154c25a571dd8614d1af80de8
+- shared-modules/linux-audio/fluidsynth2.json
 
 # Music library behind zdoom
 - name: zmusic
@@ -76,8 +67,8 @@ modules:
   - -DCMAKE_CXX_FLAGS=-lrt -ldl
   sources:
   - type: archive
-    url: https://github.com/coelckers/ZMusic/archive/1.1.0.tar.gz
-    sha256: 69255ddb62ecb238474bc57e3f761a593006a22eef90c4e786ef613d9a643b3a
+    url: https://github.com/coelckers/ZMusic/archive/1.1.3.tar.gz
+    sha256: 5f432b022e023175eae7701625f79287e9ffe889a444179681381026b4fb93bf
 
 # This builds both the application code and
 # the custom game data
@@ -171,21 +162,17 @@ modules:
     sha256: aadb5597fb95ea5f7d336999e3c68ad32aa6357027aed7d4d9ff0ac75f2988e6
 
 - name : acc
-  buildsystem: simple
+  buildsystem: cmake-ninja
+  no-make-install: true
   build-commands:
-  - make
-  - install -Dm 774 acc /app/bin/acc
-  - install -Dm 774 acc.sh /app/bin/acc.sh
-  - install -Dm 644 zcommon.acs /app/bin/acc-include/zcommon.acs
-  - install -Dm 644 zdefs.acs /app/bin/acc-include/zdefs.acs
-  - install -Dm 644 zspecial.acs /app/bin/acc-include/zspecial.acs
-  - install -Dm 644 zwvars.acs /app/bin/acc-include/zwvars.acs
+  - install -Dm744 acc /app/bin/acc
+  - install -Dm744 acc.sh /app/bin/acc.sh
   config-opts:
   - -DCMAKE_BUILD_TYPE=RelWithDebInfo
   sources:
   - type: archive
-    url: https://zdoom.org/files/utils/acc/acc157src.zip
-    sha256: 53c4ac1bbdebf0b5303b7b1aa886edfa5a9be58348b905d9074cc0e43472fff7
+    url: https://github.com/rheit/acc/archive/1.58.tar.gz
+    sha256: b11abbe398325457fff0bbc75bf34c44933e1ce1ec3846cb6b6f291f072fcc9a
     # This script is a workaround for some very iffy file manager
   - type: script
     commands:
