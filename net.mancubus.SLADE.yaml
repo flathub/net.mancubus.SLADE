@@ -165,8 +165,9 @@ modules:
   buildsystem: cmake-ninja
   no-make-install: true
   build-commands:
-  - install -Dm744 acc /app/bin/acc
-  - install -Dm744 acc.sh /app/bin/acc.sh
+  - install -Dm744 acc -t /app/bin/
+  - install -Dm744 acc.sh -t /app/bin/
+  - install -Dm744 z*.acs -t /app/bin/acc-include/
   config-opts:
   - -DCMAKE_BUILD_TYPE=RelWithDebInfo
   sources:
