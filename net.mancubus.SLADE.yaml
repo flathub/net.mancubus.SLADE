@@ -1,7 +1,4 @@
 app-id: net.mancubus.SLADE
-
-# GNOME 3.38 not supported yet
-# https://github.com/sirjuddington/SLADE/issues/1209
 runtime: org.gnome.Platform
 runtime-version: '40'
 sdk: org.gnome.Sdk
@@ -186,13 +183,14 @@ modules:
 - name: slade
   buildsystem: cmake
   config-opts:
+  #- -DCMAKE_CXX_FLAGS='-std=c++17 -lstdc++fs'
   - -DCMAKE_BUILD_TYPE=RelWithDebInfo
   - -DWX_GTK3=ON
   sources:
   - type: git
     url: https://github.com/sirjuddington/SLADE.git
-    tag: 3.1.13
-    commit: ba722dd75f92db6ddc09b03fcda53bf5094c3a08
+    branch: stable
+    commit: cab512cc1120c10e9ef8f5906527e296ad0ca207
   - type: patch
     path: soundfont.patch
   - type: shell
