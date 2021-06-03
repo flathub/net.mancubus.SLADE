@@ -59,40 +59,17 @@ modules:
 
 - shared-modules/linux-audio/libinstpatch.json
 - shared-modules/linux-audio/fluidsynth2.json
+- shared-modules/gzdoom/gzdoom.json
 
-# Music library behind zdoom
-- name: zmusic
-  buildsystem: cmake-ninja
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+- name: gzdoom-script
+  buildsystem: simple
+  build-commands:
+  - install -Dm 744 gzdoom.sh /app/bin/gzdoom.sh
   sources:
-  - type: archive
-    url: https://github.com/coelckers/ZMusic/archive/1.1.8.tar.gz
-    sha256: 73082f661b7b0bb33348d1d186c132deec9132a1613480348a00172b49c9fd68
-
-# This builds both the application code and
-# the custom game data
-- name: gzdoom
-  buildsystem: cmake-ninja
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-  sources:
-  - type: git
-    url: https://github.com/coelckers/gzdoom.git
-    tag: g4.6.0
-    commit: c320db66f4b31256d5ad400610a2e1fab028dfe7
-  - type: file
-    url: https://github.com/coelckers/gzdoom/raw/g4.6.0/soundfont/gzdoom.sf2
-    sha256: fca3e514b635a21789d4224e84865d2954a2a914d46b64aa8219ddb565c44869
-  - type: shell
-    commands:
-    - install -Dm 644 gzdoom.sf2 /app/share/sounds/sf2/gzdoom.sf2
   - type: script
     commands:
     - gzdoom +fluid_patchset /app/share/sounds/sf2/gzdoom.sf2 "$@"
     dest-filename: gzdoom.sh
-  post-install:
-  - install -D gzdoom.sh /app/bin/gzdoom.sh
 
 - name: freeimage
   no-autogen: true
@@ -183,13 +160,12 @@ modules:
 - name: slade
   buildsystem: cmake
   config-opts:
-  #- -DCMAKE_CXX_FLAGS='-std=c++17 -lstdc++fs'
   - -DCMAKE_BUILD_TYPE=RelWithDebInfo
   - -DWX_GTK3=ON
   sources:
   - type: git
     url: https://github.com/sirjuddington/SLADE.git
-    branch: stable
+    tag: 3.1.13a
     commit: cab512cc1120c10e9ef8f5906527e296ad0ca207
   - type: patch
     path: soundfont.patch
