@@ -49,6 +49,10 @@ modules:
   - type: archive
     url: https://github.com/wxWidgets/wxWidgets/archive/v3.1.3.tar.gz
     sha256: a5cb5ea326d76b5e472e9400933cef17c900d5c9b549e40eef00b64fe86d7cb0
+    x-checker-data:
+      type: anitya
+      project-id: 5150
+      url-template: https://github.com/wxWidgets/wxWidgets/archive/v$version.tar.gz
   - type: script
     dest-filename: autogen.sh
     commands:
@@ -80,6 +84,10 @@ modules:
   - type: archive
     url: http://downloads.sourceforge.net/freeimage/FreeImage3180.zip
     sha256: f41379682f9ada94ea7b34fe86bf9ee00935a3147be41b6569c9605a53e438fd
+    x-checker-data:
+      type: anitya
+      project-id: 10655
+      url-template: http://downloads.sourceforge.net/freeimage/FreeImage$version.zip
   - type: shell
     commands:
     - sed -i 's|-o root -g root ||' ./Makefile.gnu
@@ -93,6 +101,10 @@ modules:
   - type: archive
     url: https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip
     sha256: bf1e0643acb92369b24572b703473af60bac82caf5af61e77c063b779471bb7f
+    x-checker-data:
+      type: anitya
+      project-id: 12315
+      url-template: https://www.sfml-dev.org/files/SFML-$version-sources.zip
 
 # Upstream maintenance has stopped
 # https://github.com/frankheckenbach/ftgl/issues/10
@@ -104,6 +116,10 @@ modules:
   - type: archive
     url: https://github.com/frankheckenbach/ftgl/archive/v2.4.0.tar.gz
     sha256: aa97da1c3442a8fd3941037655df18016d70b5266381c81d81e8b5335f196ea8
+    x-checker-data:
+      type: anitya
+      project-id: 229380
+      url-template: https://github.com/frankheckenbach/ftgl/archive/v$version.tar.gz
   # Command required to work around existing bug
   # https://github.com/frankheckenbach/ftgl/issues/11
   - type: shell
