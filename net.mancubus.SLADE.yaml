@@ -184,7 +184,19 @@ modules:
       type: anitya
       project-id: 11526
       url-template: https://github.com/fmtlib/fmt/archive/refs/tags/$version.tar.gz
-    
+
+- name: glad
+  buildsystem: cmake-ninja
+  config-opts:
+  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+  - -DBUILD_SHARED_LIBS=true
+  - -DGLAD_REPRODUCIBLE=true
+  - -DGLAD_INSTALL=true
+  sources:
+  - type: archive
+    url: https://github.com/Dav1dde/glad/archive/refs/tags/v0.1.36.tar.gz
+    sha256: 8470ed1b0e9fbe88e10c34770505c8a1dc8ccb78cadcf673331aaf5224f963d2
+
 # Patches have been reported upstream
 # https://github.com/sirjuddington/SLADE/issues/1111
 - name: slade
