@@ -207,8 +207,8 @@ modules:
   sources:
   - type: git
     url: https://github.com/sirjuddington/SLADE.git
-    tag: 3.2.0
-    commit: 68e0a69dc449f00c3a288b53d4bbfa4677d2759b
+    branch: stable
+    commit: b1cf0c90927060eb6c6e3a1314d0c3d1e81e848e
   - type: patch
     path: soundfont.patch
   - type: shell
