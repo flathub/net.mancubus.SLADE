@@ -147,8 +147,8 @@ modules:
           - acc "$@"
         dest-filename: acc.sh
 
-# Build wxWidgets
-# Use git to include submodules that are required
+# Build wxWidgets using git to include submodules
+# 3.1.6 not supported yet: https://github.com/sirjuddington/SLADE/issues/1341
   - name: wxwidgets
     buildsystem: autotools
     config-opts:
@@ -164,12 +164,14 @@ modules:
       - type: git
         url: https://github.com/wxWidgets/wxWidgets
         tag: v3.1.5
-        commit: 35a6d7b15fedfdb5198bb6c28b31cda33b2c2a76
+        commit: 9c0a8be1dc32063d91ed1901fd5fcd54f4f955a1
         x-checker-data:
           type: anitya
           project-id: 5150
           stable-only: true
           tag-template: v$version
+          versions:
+            <: '3.1.6'
 
   - shared-modules/lua5.3/lua-5.3.5.json
 
