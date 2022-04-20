@@ -5,213 +5,214 @@ sdk: org.gnome.Sdk
 
 command: slade
 finish-args:
-- --device=dri
-- --socket=x11
-- --share=ipc
-- --socket=pulseaudio
+  - --device=dri
+  - --socket=x11
+  - --share=ipc
+  - --socket=pulseaudio
 
 # Base editor requirements
-- --filesystem=home
+  - --filesystem=home
 
 # GZDoom requirements
-- --env=DOOMWADDIR=/app/share/games/doom
+  - --env=DOOMWADDIR=/app/share/games/doom
 
 # Simpler way of preventing KDE related errors in GZDoom
-- --env=KDE_FULL_SESSION=false
+  - --env=KDE_FULL_SESSION=false
 
 # required for start page
-- --share=network
+  - --share=network
 
 # Migrate Dconf
-- --metadata=X-DConf=migrate-path=/net/mancubus/SLADE/
+  - --metadata=X-DConf=migrate-path=/net/mancubus/SLADE/
 
 cleanup:
-- /app/include
-- /app/lib/*.a
-- /app/lib/*.la
-- /app/lib/pkgconfig
+  - /app/include
+  - /app/lib/*.a
+  - /app/lib/*.la
+  - /app/lib/pkgconfig
 
 modules:
 # Required so we can use wxWidgets with openGL integration
-- shared-modules/glu/glu-9.json
-- shared-modules/glew/glew.json
+  - shared-modules/glu/glu-9.json
+  - shared-modules/glew/glew.json
 
-- shared-modules/linux-audio/libinstpatch.json
-- shared-modules/linux-audio/fluidsynth2.json
-- shared-modules/gzdoom/gzdoom.json
+  - shared-modules/linux-audio/libinstpatch.json
+  - shared-modules/linux-audio/fluidsynth2.json
+  - shared-modules/gzdoom/gzdoom.json
 
-- name: gzdoom-script
-  buildsystem: simple
-  build-commands:
-  - install -Dm 744 gzdoom.sh /app/bin/gzdoom.sh
-  sources:
-  - type: script
-    commands:
-    - gzdoom +fluid_patchset /app/share/sounds/sf2/gzdoom.sf2 "$@"
-    dest-filename: gzdoom.sh
+  - name: gzdoom-script
+    buildsystem: simple
+    build-commands:
+      - install -Dm 744 gzdoom.sh /app/bin/gzdoom.sh
+    sources:
+      - type: script
+        commands:
+          - gzdoom +fluid_patchset /app/share/sounds/sf2/gzdoom.sf2 "$@"
+        dest-filename: gzdoom.sh
 
-- name: freeimage
-  no-autogen: true
-  build-options:
+  - name: freeimage
+    no-autogen: true
+    build-options:
     #C++17 is not supported
-    cxxflags: -std=c++14
-  make-args:
-  - DESTDIR=/app
-  sources:
-  - type: archive
-    url: http://downloads.sourceforge.net/freeimage/FreeImage3180.zip
-    sha256: f41379682f9ada94ea7b34fe86bf9ee00935a3147be41b6569c9605a53e438fd
-    x-checker-data:
-      type: anitya
-      project-id: 10655
-      url-template: http://downloads.sourceforge.net/freeimage/FreeImage$version.zip
-  - type: shell
-    commands:
-    - sed -i 's|-o root -g root ||' ./Makefile.gnu
-    - sed -i 's|/usr|/app|' ./Makefile.gnu
+      cxxflags: -std=c++14
+    make-args:
+      - DESTDIR=/app
+    sources:
+      - type: archive
+        url: http://downloads.sourceforge.net/freeimage/FreeImage3180.zip
+        sha256: f41379682f9ada94ea7b34fe86bf9ee00935a3147be41b6569c9605a53e438fd
+        x-checker-data:
+          type: anitya
+          project-id: 10655
+          url-template: http://downloads.sourceforge.net/freeimage/FreeImage$version.zip
+      - type: shell
+        commands:
+          - sed -i 's|-o root -g root ||' ./Makefile.gnu
+          - sed -i 's|/usr|/app|' ./Makefile.gnu
 
-- name: SFML
-  buildsystem: cmake-ninja
-  config-opts:
-  - -DSFML_INSTALL_PKGCONFIG_FILES=TRUE
-  sources:
-  - type: archive
-    url: https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip
-    sha256: bf1e0643acb92369b24572b703473af60bac82caf5af61e77c063b779471bb7f
-    x-checker-data:
-      type: anitya
-      project-id: 12315
-      url-template: https://www.sfml-dev.org/files/SFML-$version-sources.zip
+  - name: SFML
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DSFML_INSTALL_PKGCONFIG_FILES=TRUE
+    sources:
+      - type: archive
+        url: https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip
+        sha256: bf1e0643acb92369b24572b703473af60bac82caf5af61e77c063b779471bb7f
+        x-checker-data:
+          type: anitya
+          project-id: 12315
+          url-template: https://www.sfml-dev.org/files/SFML-$version-sources.zip
 
 # Upstream maintenance has stopped
 # https://github.com/frankheckenbach/ftgl/issues/10
-- name: ftgl
-  buildsystem: cmake-ninja
-  config-opts:
-  - -DOpenGL_GL_PREFERENCE=GLVND
-  sources:
-  - type: archive
-    url: https://github.com/frankheckenbach/ftgl/archive/v2.4.0.tar.gz
-    sha256: aa97da1c3442a8fd3941037655df18016d70b5266381c81d81e8b5335f196ea8
-    x-checker-data:
-      type: anitya
-      project-id: 229380
-      url-template: https://github.com/frankheckenbach/ftgl/archive/v$version.tar.gz
+  - name: ftgl
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DOpenGL_GL_PREFERENCE=GLVND
+    sources:
+      - type: archive
+        url: https://github.com/frankheckenbach/ftgl/archive/v2.4.0.tar.gz
+        sha256: aa97da1c3442a8fd3941037655df18016d70b5266381c81d81e8b5335f196ea8
+        x-checker-data:
+          type: anitya
+          project-id: 229380
+          url-template: https://github.com/frankheckenbach/ftgl/archive/v$version.tar.gz
   # Command required to work around existing bug
   # https://github.com/frankheckenbach/ftgl/issues/11
-  - type: shell
-    commands:
-    - sed -i '29d' ./src/CMakeLists.txt
+      - type: shell
+        commands:
+          - sed -i '29d' ./src/CMakeLists.txt
 
-- name: zdbsp
-  buildsystem: cmake
-  no-make-install: true
-  build-commands:
-  - install -D zdbsp /app/bin/zdbsp
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-  sources:
-  - type: archive
-    url: https://github.com/rheit/zdbsp/archive/v1.19.tar.gz
-    sha256: 586303cbe1189c2b2239b9713fa8755c3f8aabf6f439d0dd29920b91fb236f29
+  - name: zdbsp
+    buildsystem: cmake
+    no-make-install: true
+    build-commands:
+      - install -D zdbsp /app/bin/zdbsp
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/rheit/zdbsp/archive/v1.19.tar.gz
+        sha256: 586303cbe1189c2b2239b9713fa8755c3f8aabf6f439d0dd29920b91fb236f29
 
-- name: soundfonts
-  buildsystem: simple
-  build-commands:
-  - install -Dm 644 FluidR3_GM.sf2 /app/share/sounds/sf2/FluidR3_GM.sf2
-  - install -Dm 644 FluidR3_GS.sf2 /app/share/sounds/sf2/FluidR3_GS.sf2
-  sources:
-  - type: file
-    url: https://sources.debian.org/src/fluid-soundfont/3.1-5.2/FluidR3_GM.sf2/
-    sha256: 74594e8f4250680adf590507a306655a299935343583256f3b722c48a1bc1cb0
-  - type: file
-    url: https://sources.debian.org/src/fluid-soundfont/3.1-5.2/FluidR3_GS.sf2/
-    sha256: aadb5597fb95ea5f7d336999e3c68ad32aa6357027aed7d4d9ff0ac75f2988e6
+  - name: soundfonts
+    buildsystem: simple
+    build-commands:
+      - install -Dm 644 FluidR3_GM.sf2 /app/share/sounds/sf2/FluidR3_GM.sf2
+      - install -Dm 644 FluidR3_GS.sf2 /app/share/sounds/sf2/FluidR3_GS.sf2
+    sources:
+      - type: file
+        url: https://sources.debian.org/src/fluid-soundfont/3.1-5.2/FluidR3_GM.sf2/
+        sha256: 74594e8f4250680adf590507a306655a299935343583256f3b722c48a1bc1cb0
+      - type: file
+        url: https://sources.debian.org/src/fluid-soundfont/3.1-5.2/FluidR3_GS.sf2/
+        sha256: aadb5597fb95ea5f7d336999e3c68ad32aa6357027aed7d4d9ff0ac75f2988e6
 
-- name : acc
-  buildsystem: cmake-ninja
-  no-make-install: true
-  build-commands:
-  - install -Dm744 acc -t /app/bin/
-  - install -Dm744 acc.sh -t /app/bin/
-  - install -Dm744 z*.acs -t /app/bin/acc-include/
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-  sources:
-  - type: archive
-    url: https://github.com/rheit/acc/archive/1.58.tar.gz
-    sha256: b11abbe398325457fff0bbc75bf34c44933e1ce1ec3846cb6b6f291f072fcc9a
+  - name: acc
+    buildsystem: cmake-ninja
+    no-make-install: true
+    build-commands:
+      - install -Dm744 acc -t /app/bin/
+      - install -Dm744 acc.sh -t /app/bin/
+      - install -Dm744 z*.acs -t /app/bin/acc-include/
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/rheit/acc/archive/1.58.tar.gz
+        sha256: b11abbe398325457fff0bbc75bf34c44933e1ce1ec3846cb6b6f291f072fcc9a
     # This script is a workaround for some very iffy file manager
-  - type: script
-    commands:
-    - acc "$@"
-    dest-filename: acc.sh
+      - type: script
+        commands:
+          - acc "$@"
+        dest-filename: acc.sh
 
 # Build wxWidgets
 # Use git to include submodules that are required
-- name: wxwidgets
-  buildsystem: autotools
-  config-opts:
-    - --with-gtk=3
-    - --disable-sdltest
-    - --enable-shared
-    - --enable-webview
-    - --enable-webviewwebkit
-    - --with-opengl
-    - --with-sdl
-    - --with-libiconv=/usr
-  sources:
-    - type: git
-      url: https://github.com/wxWidgets/wxWidgets
-      tag: v3.1.5
-      x-checker-data:
-        type: anitya
-        project-id: 5150
-        stable-only: true
-        tag-template: v$version
+  - name: wxwidgets
+    buildsystem: autotools
+    config-opts:
+      - --with-gtk=3
+      - --disable-sdltest
+      - --enable-shared
+      - --enable-webview
+      - --enable-webviewwebkit
+      - --with-opengl
+      - --with-sdl
+      - --with-libiconv=/usr
+    sources:
+      - type: git
+        url: https://github.com/wxWidgets/wxWidgets
+        tag: v3.1.5
+        commit: 35a6d7b15fedfdb5198bb6c28b31cda33b2c2a76
+        x-checker-data:
+          type: anitya
+          project-id: 5150
+          stable-only: true
+          tag-template: v$version
 
-- shared-modules/lua5.3/lua-5.3.5.json
+  - shared-modules/lua5.3/lua-5.3.5.json
 
-- name: fmt
-  buildsystem: cmake-ninja
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-  sources:
-  - type: archive
-    url: https://github.com/fmtlib/fmt/archive/refs/tags/8.1.1.tar.gz
-    sha256: 3d794d3cf67633b34b2771eb9f073bde87e846e0d395d254df7b211ef1ec7346
-    x-checker-data:
-      type: anitya
-      project-id: 11526
-      url-template: https://github.com/fmtlib/fmt/archive/refs/tags/$version.tar.gz
+  - name: fmt
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/fmtlib/fmt/archive/refs/tags/8.1.1.tar.gz
+        sha256: 3d794d3cf67633b34b2771eb9f073bde87e846e0d395d254df7b211ef1ec7346
+        x-checker-data:
+          type: anitya
+          project-id: 11526
+          url-template: https://github.com/fmtlib/fmt/archive/refs/tags/$version.tar.gz
 
-- name: glad
-  buildsystem: cmake-ninja
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-  - -DBUILD_SHARED_LIBS=true
-  - -DGLAD_REPRODUCIBLE=true
-  - -DGLAD_INSTALL=true
-  sources:
-  - type: archive
-    url: https://github.com/Dav1dde/glad/archive/refs/tags/v0.1.36.tar.gz
-    sha256: 8470ed1b0e9fbe88e10c34770505c8a1dc8ccb78cadcf673331aaf5224f963d2
+  - name: glad
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DBUILD_SHARED_LIBS=true
+      - -DGLAD_REPRODUCIBLE=true
+      - -DGLAD_INSTALL=true
+    sources:
+      - type: archive
+        url: https://github.com/Dav1dde/glad/archive/refs/tags/v0.1.36.tar.gz
+        sha256: 8470ed1b0e9fbe88e10c34770505c8a1dc8ccb78cadcf673331aaf5224f963d2
 
 # Patches have been reported upstream
 # https://github.com/sirjuddington/SLADE/issues/1111
-- name: slade
-  buildsystem: cmake
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-  - -DWX_GTK3=ON
-  sources:
-  - type: git
-    url: https://github.com/sirjuddington/SLADE.git
-    branch: stable
-    commit: b1cf0c90927060eb6c6e3a1314d0c3d1e81e848e
-  - type: patch
-    path: soundfont.patch
-  - type: shell
-    commands:
-    - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
+  - name: slade
+    buildsystem: cmake
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DWX_GTK3=ON
+    sources:
+      - type: git
+        url: https://github.com/sirjuddington/SLADE.git
+        branch: stable
+        commit: b1cf0c90927060eb6c6e3a1314d0c3d1e81e848e
+      - type: patch
+        path: soundfont.patch
+      - type: shell
+        commands:
+          - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
 
