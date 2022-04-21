@@ -171,7 +171,7 @@ modules:
           stable-only: true
           tag-template: v$version
           versions:
-            <: '3.1.6'
+            <: 3.1.6
 
   - shared-modules/lua5.3/lua-5.3.5.json
 
@@ -211,7 +211,7 @@ modules:
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
         branch: stable
-        commit: 5724f3f7d797364745f3199a2d93b76db053d657
+        commit: 8ec0ddbe97db1e7e54c4f61a3eb4bde9a1b71afc
       - type: patch
         path: soundfont.patch
       - type: shell
