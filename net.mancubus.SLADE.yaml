@@ -139,8 +139,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/rheit/acc/archive/1.58.tar.gz
-        sha256: b11abbe398325457fff0bbc75bf34c44933e1ce1ec3846cb6b6f291f072fcc9a
+        url: https://github.com/zdoom/acc/archive/1.59.tar.gz
+        sha256: 6f58e6683e0de94ca53fd6a2120e5ee446bf54d8d1c6eb1a56c1a4abfce071e0
     # This script is a workaround for some very iffy file manager
       - type: script
         commands:
