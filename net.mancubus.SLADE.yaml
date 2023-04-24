@@ -1,6 +1,6 @@
 app-id: net.mancubus.SLADE
 runtime: org.gnome.Platform
-runtime-version: '42'
+runtime-version: '43'
 sdk: org.gnome.Sdk
 
 command: slade
@@ -159,16 +159,16 @@ modules:
     sources:
       - type: git
         url: https://github.com/wxWidgets/wxWidgets
-        tag: v3.1.5
-        commit: 9c0a8be1dc32063d91ed1901fd5fcd54f4f955a1
+        tag: v3.2.2.1
+        commit: a812fffda3fe686c94e24bff27e8effd96e4de64
         x-checker-data:
           type: anitya
           project-id: 5150
           stable-only: true
           tag-template: v$version
           versions:
-            <: 3.1.6
-
+            <: 3.2.3
+            
   - shared-modules/lua5.3/lua-5.3.5.json
 
   - name: fmt
