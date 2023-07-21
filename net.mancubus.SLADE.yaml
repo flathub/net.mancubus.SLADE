@@ -72,8 +72,8 @@ modules:
       - -DSFML_INSTALL_PKGCONFIG_FILES=TRUE
     sources:
       - type: archive
-        url: https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip
-        sha256: bf1e0643acb92369b24572b703473af60bac82caf5af61e77c063b779471bb7f
+        url: https://www.sfml-dev.org/files/SFML-2.6.0-sources.zip
+        sha256: dc477fc7266641709046bd38628c909f5748bd2564b388cf6c750a9e20cdfef1
         x-checker-data:
           type: anitya
           project-id: 12315
@@ -206,8 +206,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.1
-        commit: ea8288dfe1b0ed7e923fce52c62a20b8fc47c16b
+        tag: 3.2.4
+        commit: 7b70e10359ae7846cd4124ffd9d466b0b461234f
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
