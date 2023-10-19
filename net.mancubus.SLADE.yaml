@@ -159,15 +159,13 @@ modules:
     sources:
       - type: git
         url: https://github.com/wxWidgets/wxWidgets
-        tag: v3.1.5
-        commit: 9c0a8be1dc32063d91ed1901fd5fcd54f4f955a1
+        tag: v3.2.3
+        commit: cc7fefd9f17ced619633a7bef2f379fb8c8d25f2
         x-checker-data:
           type: anitya
           project-id: 5150
           stable-only: true
           tag-template: v$version
-          versions:
-            <: 3.1.6
 
   - shared-modules/lua5.3/lua-5.3.5.json
 
@@ -216,4 +214,5 @@ modules:
       - type: shell
         commands:
           - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
+          - sed -i 's|target_link_libraries(slade -lstdc++fs)||g' src/CMakeLists.txt
 
