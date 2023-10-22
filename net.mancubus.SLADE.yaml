@@ -213,6 +213,5 @@ modules:
         path: soundfont.patch
       - type: shell
         commands:
-          - sed -i 's|#define _WINDOWS_|#define _NOWINDOWS_|' /app/include/FreeImage.h
           - sed -i 's|target_link_libraries(slade -lstdc++fs)||g' src/CMakeLists.txt
 
