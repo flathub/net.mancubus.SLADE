@@ -144,7 +144,6 @@ modules:
         dest-filename: acc.sh
 
 # Build wxWidgets using git to include submodules
-# 3.1.6 not supported yet: https://github.com/sirjuddington/SLADE/issues/1341
   - name: wxwidgets
     buildsystem: autotools
     config-opts:
