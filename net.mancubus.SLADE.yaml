@@ -158,8 +158,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/wxWidgets/wxWidgets
-        tag: v3.2.3
-        commit: cc7fefd9f17ced619633a7bef2f379fb8c8d25f2
+        tag: v3.2.4-with-msvs2012-fix
+        commit: 8dc560342884a56881be8b9cddb32d080f9050db
         x-checker-data:
           type: anitya
           project-id: 5150
