@@ -199,6 +199,7 @@ modules:
     buildsystem: cmake
     config-opts:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DBUILD_PK3=ON
       - -DWX_GTK3=ON
     sources:
       - type: git
