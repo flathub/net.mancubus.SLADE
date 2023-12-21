@@ -208,6 +208,8 @@ modules:
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
+      - type: shell
+        path: sed -i '190d' ./cmake/unix.cmake
       - type: patch
         path: soundfont.patch
       - type: shell
