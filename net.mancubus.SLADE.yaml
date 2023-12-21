@@ -208,11 +208,10 @@ modules:
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
-      - type: shell
-        path: sed -i '190d' ./cmake/unix.cmake
       - type: patch
         path: soundfont.patch
       - type: shell
         commands:
+          - sed -i '190d' ./cmake/unix.cmake
           - sed -i 's|target_link_libraries(slade -lstdc++fs)||g' src/CMakeLists.txt
 
