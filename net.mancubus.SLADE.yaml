@@ -214,5 +214,6 @@ modules:
         path: soundfont.patch
       - type: shell
         commands:
-          - sed -i 's|target_link_libraries(slade -lstdc++fs)||g' cmake/unix.cmake
+          - sed -i 's|target_link_libraries(slade -lstdc++fs)||g'	cmake/unix.cmake
+          - sed -i 's|PK3_OUTPUT|PK3_DESTINATION|g'			dist/CMakeLists.txt
 
