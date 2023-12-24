@@ -51,6 +51,7 @@ modules:
         dest-filename: gzdoom.sh
 
   - name: freeimage
+    buildsystem: autotools
     no-autogen: true
     build-options:
     #C++17 is not supported
@@ -100,7 +101,7 @@ modules:
           - sed -i '29d' ./src/CMakeLists.txt
 
   - name: zdbsp
-    buildsystem: cmake
+    buildsystem: cmake-ninja
     no-make-install: true
     build-commands:
       - install -D zdbsp /app/bin/zdbsp
@@ -158,8 +159,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/wxWidgets/wxWidgets
-        tag: v3.2.3
-        commit: cc7fefd9f17ced619633a7bef2f379fb8c8d25f2
+        tag: v3.2.4
+        commit: 085a136dcb11aca5b1102193f006f8056d5f0876
         x-checker-data:
           type: anitya
           project-id: 5150
@@ -196,15 +197,16 @@ modules:
 # Patches have been reported upstream
 # https://github.com/sirjuddington/SLADE/issues/1111
   - name: slade
-    buildsystem: cmake
+    buildsystem: cmake-ninja
     config-opts:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DBUILD_PK3=ON
       - -DWX_GTK3=ON
     sources:
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.4
-        commit: 7b70e10359ae7846cd4124ffd9d466b0b461234f
+        tag: 3.2.5a
+        commit: d7437d0469140d884fb18ca9f0e30b1483f6a883
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
@@ -212,5 +214,6 @@ modules:
         path: soundfont.patch
       - type: shell
         commands:
-          - sed -i 's|target_link_libraries(slade -lstdc++fs)||g' src/CMakeLists.txt
+          - sed -i 's|target_link_libraries(slade -lstdc++fs)||g' cmake/unix.cmake
+          - sed -i 's|PK3_OUTPUT|PK3_DESTINATION|g' dist/CMakeLists.txt
 
