@@ -175,7 +175,7 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/fmtlib/fmt/archive/refs/tags/10.2.0.tar.gz
+        url: https://github.com/fmtlib/fmt/archive/refs/tags/10.2.1.tar.gz
         sha256: 3ca91733a7313a8ad41c0885929415f8ec0a2a31d4dc7e27e9331412f4ca26ac
         x-checker-data:
           type: anitya
