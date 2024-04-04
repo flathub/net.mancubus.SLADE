@@ -50,22 +50,12 @@ modules:
           - gzdoom +fluid_patchset /app/share/sounds/sf2/gzdoom.sf2 "$@"
         dest-filename: gzdoom.sh
 
-  - name: freeimage
-    buildsystem: autotools
-    no-autogen: true
-    build-options:
-    #C++17 is not supported
-      cxxflags: -std=c++14
-    make-args:
-      - DESTDIR=/app
+  - name: freeimage-re
+    buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: http://downloads.sourceforge.net/freeimage/FreeImage3180.zip
-        sha256: f41379682f9ada94ea7b34fe86bf9ee00935a3147be41b6569c9605a53e438fd
-      - type: shell
-        commands:
-          - sed -i 's|-o root -g root ||' ./Makefile.gnu
-          - sed -i 's|/usr|/app|' ./Makefile.gnu
+        url: https://github.com/agruzdev/FreeImageRe/archive/refs/tags/v0.1.tar.gz
+        sha256: 8337a6f7197e715b164b7c3cff200578fdd14c1cdf72a0409fdfe57125212a31
 
   - name: SFML
     buildsystem: cmake-ninja
