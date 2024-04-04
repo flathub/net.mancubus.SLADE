@@ -20,7 +20,7 @@ finish-args:
   - --env=KDE_FULL_SESSION=false
 
 # required for start page
-  - --share=network
+#  - --share=network # disabled due to CVEs: https://github.com/sirjuddington/SLADE/issues/1675
 
 # Migrate Dconf
   - --metadata=X-DConf=migrate-path=/net/mancubus/SLADE/
