@@ -59,6 +59,8 @@ modules:
 
   - name: freeimage-re
     buildsystem: cmake-ninja
+    config-opts:
+      - -ZLIB_ROOT=/app/lib
     sources:
       - type: archive
         url: https://github.com/agruzdev/FreeImageRe/archive/refs/tags/v0.1.tar.gz
