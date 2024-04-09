@@ -204,9 +204,8 @@ modules:
       - -DWX_GTK3=ON
     sources:
       - type: git
-        url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.5a
-        commit: d7437d0469140d884fb18ca9f0e30b1483f6a883
+        url: https://github.com/Alexander-Wilms/SLADE
+        commit: 0f6a999677405cd820491f568bb39b60e809f1f5
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
