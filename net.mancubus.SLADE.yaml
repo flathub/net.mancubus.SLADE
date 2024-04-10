@@ -20,7 +20,7 @@ finish-args:
   - --env=KDE_FULL_SESSION=false
 
 # required for start page
-  - --share=network
+# - --share=network # disabled due to CVEs: https://github.com/sirjuddington/SLADE/issues/1675
 
 # Migrate Dconf
   - --metadata=X-DConf=migrate-path=/net/mancubus/SLADE/
@@ -216,4 +216,8 @@ modules:
         commands:
           - sed -i 's|target_link_libraries(slade -lstdc++fs)||g' cmake/unix.cmake
           - sed -i 's|PK3_OUTPUT|PK3_DESTINATION|g' dist/CMakeLists.txt
+          # ↓ has to be removed once https://github.com/sirjuddington/SLADE/pull/1676 has been merged a there's a new release
+          - sed -i 's|/dist/res/logo_icon.png|/dist/res/icons/general/logo.svg|g' cmake/unix.cmake
+          - sed -i 's|share/icons/|share/icons/hicolor/scalable/apps/|g' cmake/unix.cmake
+          - sed -i 's|net.mancubus.SLADE.png|net.mancubus.SLADE.svg|g' cmake/unix.cmake
 
