@@ -205,8 +205,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.5a
-        commit: d7437d0469140d884fb18ca9f0e30b1483f6a883
+        tag: 3.2.5
+        commit: 0856e5ac150e372e55fd560b22820049a47e4c38
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
@@ -217,7 +217,8 @@ modules:
           - sed -i 's|target_link_libraries(slade -lstdc++fs)||g' cmake/unix.cmake
           - sed -i 's|PK3_OUTPUT|PK3_DESTINATION|g' dist/CMakeLists.txt
           # ↓ has to be removed once https://github.com/sirjuddington/SLADE/pull/1676 has been merged a there's a new release
-          - sed -i 's|/dist/res/logo_icon.png|/dist/res/icons/general/logo.svg|g' cmake/unix.cmake
+          - sed -i 's|/dist/res/logo_icon.png|/dist/res/icons/general/logo.svg|g'
+            cmake/unix.cmake
           - sed -i 's|share/icons/|share/icons/hicolor/scalable/apps/|g' cmake/unix.cmake
           - sed -i 's|net.mancubus.SLADE.png|net.mancubus.SLADE.svg|g' cmake/unix.cmake
 
