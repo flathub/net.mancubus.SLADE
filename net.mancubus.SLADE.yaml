@@ -205,8 +205,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.5
-        commit: 0856e5ac150e372e55fd560b22820049a47e4c38
+        tag: 3.2.6
+        commit: 74dda7046b01deb2ba6c1c288890ff94dce717af
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
