@@ -35,7 +35,9 @@ modules:
 # Required so we can use wxWidgets with openGL integration
   - shared-modules/glu/glu-9.json
   - shared-modules/glew/glew.json
-
+  
+  - shared-modules/lua5.3/lua-5.3.5.json
+  
   - shared-modules/linux-audio/libinstpatch.json
   - shared-modules/linux-audio/fluidsynth2.json
   - shared-modules/gzdoom/gzdoom.json
@@ -166,8 +168,6 @@ modules:
           project-id: 5150
           stable-only: true
           tag-template: v$version
-
-  - shared-modules/lua5.3/lua-5.3.5.json
 
   - name: fmt
     buildsystem: cmake-ninja
