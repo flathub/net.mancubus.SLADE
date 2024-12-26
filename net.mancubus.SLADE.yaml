@@ -175,8 +175,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/fmtlib/fmt/archive/refs/tags/11.0.2.tar.gz
-        sha256: 6cb1e6d37bdcb756dbbe59be438790db409cdb4868c66e888d5df9f13f7c027f
+        url: https://github.com/fmtlib/fmt/archive/refs/tags/11.1.0.tar.gz
+        sha256: a3267a911d3a30160cbb5a8d65e135f2c8c604737bee13bdf589fbc3e94d58b5
         x-checker-data:
           type: anitya
           project-id: 11526
@@ -205,8 +205,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.6
-        commit: 74dda7046b01deb2ba6c1c288890ff94dce717af
+        tag: 3.2.7
+        commit: 57470577a1662a03d44d2c2cac02efec4008b2e5
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
