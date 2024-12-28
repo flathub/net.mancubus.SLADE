@@ -35,9 +35,9 @@ modules:
 # Required so we can use wxWidgets with openGL integration
   - shared-modules/glu/glu-9.json
   - shared-modules/glew/glew.json
-  
+
   - shared-modules/lua5.3/lua-5.3.5.json
-  
+
   - shared-modules/linux-audio/libinstpatch.json
   - shared-modules/linux-audio/fluidsynth2.json
   - shared-modules/gzdoom/gzdoom.json
@@ -81,6 +81,8 @@ modules:
           type: anitya
           project-id: 12315
           url-template: https://www.sfml-dev.org/files/SFML-$version-sources.zip
+          versions:
+            - <: 3.0.0
 
 # Upstream maintenance has stopped
 # https://github.com/frankheckenbach/ftgl/issues/10
@@ -175,8 +177,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/fmtlib/fmt/archive/refs/tags/11.1.0.tar.gz
-        sha256: a3267a911d3a30160cbb5a8d65e135f2c8c604737bee13bdf589fbc3e94d58b5
+        url: https://github.com/fmtlib/fmt/archive/refs/tags/11.1.1.tar.gz
+        sha256: 482eed9efbc98388dbaee5cb5f368be5eca4893456bb358c18b7ff71f835ae43
         x-checker-data:
           type: anitya
           project-id: 11526
