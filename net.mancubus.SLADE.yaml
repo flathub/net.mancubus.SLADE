@@ -56,7 +56,7 @@ modules:
     buildsystem: autotools
     no-autogen: true
     build-options:
-    #C++17 is not supported
+      cflags: -fpermissive
       cxxflags: -std=c++14
     make-args:
       - DESTDIR=/app
@@ -87,7 +87,9 @@ modules:
 # Upstream maintenance has stopped
 # https://github.com/frankheckenbach/ftgl/issues/10
   - name: ftgl
-    buildsystem: cmake-ninja
+    buildsystem: cmake-ninja    
+    build-options:
+      cxxflags: -fpermissive
     config-opts:
       - -DOpenGL_GL_PREFERENCE=GLVND
     sources:
