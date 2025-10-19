@@ -1,6 +1,6 @@
 app-id: net.mancubus.SLADE
 runtime: org.gnome.Platform
-runtime-version: '48'
+runtime-version: '49'
 sdk: org.gnome.Sdk
 
 command: slade
@@ -10,19 +10,19 @@ finish-args:
   - --share=ipc
   - --socket=pulseaudio
 
-# Base editor requirements
+  # Base editor requirements
   - --filesystem=home
 
-# GZDoom requirements
+  # GZDoom requirements
   - --env=DOOMWADDIR=/app/share/games/doom
 
-# Simpler way of preventing KDE related errors in GZDoom
+  # Simpler way of preventing KDE related errors in GZDoom
   - --env=KDE_FULL_SESSION=false
 
-# required for start page
-# - --share=network # disabled due to CVEs: https://github.com/sirjuddington/SLADE/issues/1675
+  # required for start page
+  # - --share=network # disabled due to CVEs: https://github.com/sirjuddington/SLADE/issues/1675
 
-# Migrate Dconf
+  # Migrate Dconf
   - --metadata=X-DConf=migrate-path=/net/mancubus/SLADE/
 
 cleanup:
@@ -84,14 +84,15 @@ modules:
           versions:
             - <: 3.0.0
 
-# Upstream maintenance has stopped
-# https://github.com/frankheckenbach/ftgl/issues/10
+  # Upstream maintenance has stopped
+  # https://github.com/frankheckenbach/ftgl/issues/10
   - name: ftgl
     buildsystem: cmake-ninja
     build-options:
       cxxflags: -fpermissive
     config-opts:
       - -DOpenGL_GL_PREFERENCE=GLVND
+      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     sources:
       - type: archive
         url: https://github.com/frankheckenbach/ftgl/archive/v2.4.0.tar.gz
@@ -100,8 +101,8 @@ modules:
           type: anitya
           project-id: 229380
           url-template: https://github.com/frankheckenbach/ftgl/archive/v$version.tar.gz
-  # Command required to work around existing bug
-  # https://github.com/frankheckenbach/ftgl/issues/11
+      # Command required to work around existing bug
+      # https://github.com/frankheckenbach/ftgl/issues/11
       - type: shell
         commands:
           - sed -i '29d' ./src/CMakeLists.txt
@@ -113,6 +114,7 @@ modules:
       - install -D zdbsp /app/bin/zdbsp
     config-opts:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     sources:
       - type: archive
         url: https://github.com/rheit/zdbsp/archive/v1.19.tar.gz
@@ -140,17 +142,18 @@ modules:
       - install -Dm744 z*.acs -t /app/bin/acc-include/
     config-opts:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     sources:
       - type: archive
         url: https://github.com/zdoom/acc/archive/1.60.tar.gz
         sha256: 39add3cb28491086f286896f56f2bcab23dc463d1bf387f90f462c11a167c0ab
-    # This script is a workaround for some very iffy file manager
+      # This script is a workaround for some very iffy file manager
       - type: script
         commands:
           - acc "$@"
         dest-filename: acc.sh
 
-# Build wxWidgets using git to include submodules
+  # Build wxWidgets using git to include submodules
   - name: wxwidgets
     buildsystem: autotools
     config-opts:
@@ -190,6 +193,7 @@ modules:
     buildsystem: cmake-ninja
     config-opts:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
       - -DBUILD_SHARED_LIBS=true
       - -DGLAD_REPRODUCIBLE=true
       - -DGLAD_INSTALL=true
@@ -198,8 +202,8 @@ modules:
         url: https://github.com/Dav1dde/glad/archive/refs/tags/v0.1.36.tar.gz
         sha256: 8470ed1b0e9fbe88e10c34770505c8a1dc8ccb78cadcf673331aaf5224f963d2
 
-# Patches have been reported upstream
-# https://github.com/sirjuddington/SLADE/issues/1111
+  # Patches have been reported upstream
+  # https://github.com/sirjuddington/SLADE/issues/1111
   - name: slade
     buildsystem: cmake-ninja
     config-opts:
