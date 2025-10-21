@@ -168,8 +168,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/wxWidgets/wxWidgets
-        tag: v3.2.8.1
-        commit: 896e4f587615b832ce27b8325357cb504997e1d3
+        tag: v3.3.1
+        commit: 49c6810948f40c457e3d0848b9111627b5b61de5
         x-checker-data:
           type: anitya
           project-id: 5150
@@ -213,10 +213,9 @@ modules:
     sources:
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.7
-        commit: 57470577a1662a03d44d2c2cac02efec4008b2e5
+        tag: 3.2.8
+        commit: fb7cc161a6886c12c5120e30190a7813c6c16b62
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
-      - type: patch
-        path: soundfont.patch
+
