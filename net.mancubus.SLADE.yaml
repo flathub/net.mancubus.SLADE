@@ -136,29 +136,6 @@ modules:
           - acc "$@"
         dest-filename: acc.sh
 
-  # Build wxWidgets using git to include submodules
-  - name: wxwidgets
-    buildsystem: autotools
-    config-opts:
-      - --with-gtk=3
-      - --disable-sdltest
-      - --enable-shared
-      - --enable-webview
-      - --enable-webviewwebkit
-      - --with-opengl
-      - --with-sdl
-      - --with-libiconv=/usr
-    sources:
-      - type: git
-        url: https://github.com/wxWidgets/wxWidgets
-        tag: v3.3.1
-        commit: 49c6810948f40c457e3d0848b9111627b5b61de5
-        x-checker-data:
-          type: anitya
-          project-id: 5150
-          stable-only: true
-          tag-template: v$version
-
   - name: fmt
     buildsystem: cmake-ninja
     config-opts:
@@ -184,6 +161,25 @@ modules:
       - type: archive
         url: https://github.com/Dav1dde/glad/archive/refs/tags/v0.1.36.tar.gz
         sha256: 8470ed1b0e9fbe88e10c34770505c8a1dc8ccb78cadcf673331aaf5224f963d2
+
+  # Build wxWidgets using git to include submodules
+  - name: wxwidgets
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DwxUSE_LIBWEBP=sys
+      - -DwxUSE_LIBPNG=sys
+      - -DwxUSE_ZLIB=sys
+      - -DwxUSE_EXPAT=sys
+    sources:
+      - type: git
+        url: https://github.com/wxWidgets/wxWidgets
+        tag: v3.3.1
+        commit: 49c6810948f40c457e3d0848b9111627b5b61de5
+        x-checker-data:
+          type: anitya
+          project-id: 5150
+          stable-only: true
+          tag-template: v$version
 
   # Patches have been reported upstream
   # https://github.com/sirjuddington/SLADE/issues/1111
