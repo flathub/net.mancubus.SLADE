@@ -20,7 +20,7 @@ finish-args:
   - --env=KDE_FULL_SESSION=false
 
   # required for start page
-  # - --share=network # disabled due to CVEs: https://github.com/sirjuddington/SLADE/issues/1675
+  - --share=network
 
   # Migrate Dconf
   - --metadata=X-DConf=migrate-path=/net/mancubus/SLADE/
@@ -51,23 +51,6 @@ modules:
         commands:
           - gzdoom +fluid_patchset /app/share/sounds/sf2/gzdoom.sf2 "$@"
         dest-filename: gzdoom.sh
-
-  - name: freeimage
-    buildsystem: autotools
-    no-autogen: true
-    build-options:
-      cflags: -fpermissive
-      cxxflags: -std=c++14
-    make-args:
-      - DESTDIR=/app
-    sources:
-      - type: archive
-        url: http://downloads.sourceforge.net/freeimage/FreeImage3180.zip
-        sha256: f41379682f9ada94ea7b34fe86bf9ee00935a3147be41b6569c9605a53e438fd
-      - type: shell
-        commands:
-          - sed -i 's|-o root -g root ||' ./Makefile.gnu
-          - sed -i 's|/usr|/app|' ./Makefile.gnu
 
   - name: SFML
     buildsystem: cmake-ninja
@@ -153,29 +136,6 @@ modules:
           - acc "$@"
         dest-filename: acc.sh
 
-  # Build wxWidgets using git to include submodules
-  - name: wxwidgets
-    buildsystem: autotools
-    config-opts:
-      - --with-gtk=3
-      - --disable-sdltest
-      - --enable-shared
-      - --enable-webview
-      - --enable-webviewwebkit
-      - --with-opengl
-      - --with-sdl
-      - --with-libiconv=/usr
-    sources:
-      - type: git
-        url: https://github.com/wxWidgets/wxWidgets
-        tag: v3.2.8.1
-        commit: 896e4f587615b832ce27b8325357cb504997e1d3
-        x-checker-data:
-          type: anitya
-          project-id: 5150
-          stable-only: true
-          tag-template: v$version
-
   - name: fmt
     buildsystem: cmake-ninja
     config-opts:
@@ -202,6 +162,25 @@ modules:
         url: https://github.com/Dav1dde/glad/archive/refs/tags/v0.1.36.tar.gz
         sha256: 8470ed1b0e9fbe88e10c34770505c8a1dc8ccb78cadcf673331aaf5224f963d2
 
+  # Build wxWidgets using git to include submodules
+  - name: wxwidgets
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DwxUSE_LIBWEBP=sys
+      - -DwxUSE_LIBPNG=sys
+      - -DwxUSE_ZLIB=sys
+      - -DwxUSE_EXPAT=sys
+    sources:
+      - type: git
+        url: https://github.com/wxWidgets/wxWidgets
+        tag: v3.3.1
+        commit: 49c6810948f40c457e3d0848b9111627b5b61de5
+        x-checker-data:
+          type: anitya
+          project-id: 5150
+          stable-only: true
+          tag-template: v$version
+
   # Patches have been reported upstream
   # https://github.com/sirjuddington/SLADE/issues/1111
   - name: slade
@@ -211,12 +190,14 @@ modules:
       - -DBUILD_PK3=ON
       - -DWX_GTK3=ON
     sources:
+      - type: file
+        path: patches/FindWebP.cmake
+        dest: cmake/find_modules
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.7
-        commit: 57470577a1662a03d44d2c2cac02efec4008b2e5
+        tag: 3.2.8
+        commit: fb7cc161a6886c12c5120e30190a7813c6c16b62
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
-      - type: patch
-        path: soundfont.patch
+
