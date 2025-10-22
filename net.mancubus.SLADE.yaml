@@ -3,7 +3,7 @@ runtime: org.gnome.Platform
 runtime-version: '49'
 sdk: org.gnome.Sdk
 
-command: slade
+command: slade3.sh
 finish-args:
   - --device=dri
   - --socket=x11
@@ -200,4 +200,15 @@ modules:
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
+
+  - name: slade-cfg
+    buildsystem: simple
+    build-commands:
+      - install -Dm0755 slade3.sh "${FLATPAK_DEST}/bin/slade3.sh"
+      - install -Dm0644 slade3.cfg "${FLATPAK_DEST}/bin/slade3.cfg"
+    sources:
+      - type: file
+        path: resources/slade3.sh
+      - type: file
+        path: resources/slade3.cfg
 
