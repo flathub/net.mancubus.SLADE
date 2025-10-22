@@ -20,7 +20,7 @@ finish-args:
   - --env=KDE_FULL_SESSION=false
 
   # required for start page
-  # - --share=network # disabled due to CVEs: https://github.com/sirjuddington/SLADE/issues/1675
+  - --share=network
 
   # Migrate Dconf
   - --metadata=X-DConf=migrate-path=/net/mancubus/SLADE/
@@ -190,6 +190,9 @@ modules:
       - -DBUILD_PK3=ON
       - -DWX_GTK3=ON
     sources:
+      - type: file
+        path: patches/FindWebP.cmake
+        dest: cmake/find_modules
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
         tag: 3.2.8
