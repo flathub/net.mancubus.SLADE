@@ -59,13 +59,12 @@ modules:
       - -DSFML_INSTALL_PKGCONFIG_FILES=TRUE
     sources:
       - type: archive
-        url: https://www.sfml-dev.org/files/SFML-2.6.2-sources.zip
-        sha256: 19d6dbd9c901c74441d9888c13cb1399f614fe8993d59062a72cfbceb00fed04
+        url: https://www.sfml-dev.org/files/SFML-3.0.2-sources.zip
+        sha256: 3c8467414cf634c32419973b22faefcb8b30002f908b77fb658692e9a580a907
         x-checker-data:
           type: anitya
           project-id: 12315
           url-template: https://www.sfml-dev.org/files/SFML-$version-sources.zip
-          versions: {<: 3.0.0}
 
   # Upstream maintenance has stopped
   # https://github.com/frankheckenbach/ftgl/issues/10
