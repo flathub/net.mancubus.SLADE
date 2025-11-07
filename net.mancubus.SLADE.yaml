@@ -65,8 +65,7 @@ modules:
           type: anitya
           project-id: 12315
           url-template: https://www.sfml-dev.org/files/SFML-$version-sources.zip
-          versions:
-            - <: 3.0.0
+          versions: { <: '3.0.0' }
 
   # Upstream maintenance has stopped
   # https://github.com/frankheckenbach/ftgl/issues/10
