@@ -65,7 +65,7 @@ modules:
           type: anitya
           project-id: 12315
           url-template: https://www.sfml-dev.org/files/SFML-$version-sources.zip
-          versions: { <: '3.0.0' }
+          versions: {<: 3.0.0}
 
   # Upstream maintenance has stopped
   # https://github.com/frankheckenbach/ftgl/issues/10
@@ -196,8 +196,8 @@ modules:
         dest: cmake/find_modules
       - type: git
         url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.8
-        commit: fb7cc161a6886c12c5120e30190a7813c6c16b62
+        tag: 3.2.9
+        commit: 76c922d511d61dde61cd43606217316b1f424de1
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
