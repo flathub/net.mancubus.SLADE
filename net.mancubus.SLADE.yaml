@@ -57,14 +57,15 @@ modules:
     buildsystem: cmake-ninja
     config-opts:
       - -DSFML_INSTALL_PKGCONFIG_FILES=TRUE
+      - -DBUILD_SHARED_LIBS=ON
     sources:
       - type: archive
-        url: https://www.sfml-dev.org/files/SFML-3.0.2-sources.zip
-        sha256: 3c8467414cf634c32419973b22faefcb8b30002f908b77fb658692e9a580a907
+        url: https://github.com/SFML/SFML/archive/refs/tags/3.0.2.tar.gz
+        sha256: 0034e05f95509e5d3fb81b1625713e06da7b068f210288ce3fd67106f8f46995
         x-checker-data:
           type: anitya
           project-id: 12315
-          url-template: https://www.sfml-dev.org/files/SFML-$version-sources.zip
+          url-template: https://github.com/SFML/SFML/archive/refs/tags/$version.tar.gz
 
   # Upstream maintenance has stopped
   # https://github.com/frankheckenbach/ftgl/issues/10
