@@ -12,4 +12,4 @@ This application is sunset, for two reasons:
 - The application works better as a non-Flatpak.
   The sandboxing of Flatpak is not to the benefit of an editor like SLADE. Without sandboxing, the application can support different engines and it allows users to bring their own tools, rather than relying on the pre-packaged versions.
 
-This application is sunset in collaboration with the main developer of SLADE, @sirjuddington and he's fully committed in supporting the App Image. 
+This application is sunset in collaboration with the main developer of SLADE, @sirjuddington and he's fully committed in supporting the AppImage. 
