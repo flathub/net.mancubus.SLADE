@@ -32,171 +32,21 @@ cleanup:
   - /app/lib/pkgconfig
 
 modules:
-# Required so we can use wxWidgets with openGL integration
-  - shared-modules/glu/glu-9.json
-  - shared-modules/glew/glew.json
 
-  - shared-modules/lua5.3/lua-5.3.5.json
-
-  - shared-modules/linux-audio/libinstpatch.json
-  - shared-modules/linux-audio/fluidsynth2.json
-  - shared-modules/gzdoom/gzdoom.json
-
-  - name: gzdoom-script
+  - name: slade-eol
     buildsystem: simple
     build-commands:
-      - install -Dm 744 gzdoom.sh /app/bin/gzdoom.sh
-    sources:
-      - type: script
-        commands:
-          - exec gzdoom +fluid_patchset /app/share/games/doom/soundfonts/gzdoom.sf2
-            "$@"
-        dest-filename: gzdoom.sh
-
-  - name: SFML
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DSFML_INSTALL_PKGCONFIG_FILES=TRUE
-      - -DBUILD_SHARED_LIBS=ON
-    sources:
-      - type: archive
-        url: https://github.com/SFML/SFML/archive/refs/tags/3.0.2.tar.gz
-        sha256: 0034e05f95509e5d3fb81b1625713e06da7b068f210288ce3fd67106f8f46995
-        x-checker-data:
-          type: anitya
-          project-id: 12315
-          url-template: https://github.com/SFML/SFML/archive/refs/tags/$version.tar.gz
-
-  # Upstream maintenance has stopped
-  # https://github.com/frankheckenbach/ftgl/issues/10
-  - name: ftgl
-    buildsystem: cmake-ninja
-    build-options:
-      cxxflags: -fpermissive
-    config-opts:
-      - -DOpenGL_GL_PREFERENCE=GLVND
-      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-    sources:
-      - type: archive
-        url: https://github.com/frankheckenbach/ftgl/archive/v2.4.0.tar.gz
-        sha256: aa97da1c3442a8fd3941037655df18016d70b5266381c81d81e8b5335f196ea8
-        x-checker-data:
-          type: anitya
-          project-id: 229380
-          url-template: https://github.com/frankheckenbach/ftgl/archive/v$version.tar.gz
-      # Command required to work around existing bug
-      # https://github.com/frankheckenbach/ftgl/issues/11
-      - type: shell
-        commands:
-          - sed -i '29d' ./src/CMakeLists.txt
-
-  - name: zdbsp
-    buildsystem: cmake-ninja
-    no-make-install: true
-    build-commands:
-      - install -D zdbsp /app/bin/zdbsp
-    config-opts:
-      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-    sources:
-      - type: archive
-        url: https://github.com/rheit/zdbsp/archive/v1.19.tar.gz
-        sha256: 586303cbe1189c2b2239b9713fa8755c3f8aabf6f439d0dd29920b91fb236f29
-
-  - name: soundfonts
-    buildsystem: simple
-    build-commands:
-      - install -Dm 644 FluidR3_GM.sf2 /app/share/sounds/sf2/FluidR3_GM.sf2
-      - install -Dm 644 FluidR3_GS.sf2 /app/share/sounds/sf2/FluidR3_GS.sf2
-      - ln -s /app/share/games/doom/soundfonts/gzdoom.sf2 /app/share/sounds/sf2/gzdoom.sf2
-    sources:
-      - type: file
-        url: https://sources.debian.org/src/fluid-soundfont/3.1-5.2/FluidR3_GM.sf2/
-        sha256: 74594e8f4250680adf590507a306655a299935343583256f3b722c48a1bc1cb0
-      - type: file
-        url: https://sources.debian.org/src/fluid-soundfont/3.1-5.2/FluidR3_GS.sf2/
-        sha256: aadb5597fb95ea5f7d336999e3c68ad32aa6357027aed7d4d9ff0ac75f2988e6
-
-  - name: acc
-    buildsystem: cmake-ninja
-    no-make-install: true
-    build-commands:
-      - install -Dm744 acc -t /app/bin/
-      - install -Dm744 acc.sh -t /app/bin/
-      - install -Dm744 z*.acs -t /app/bin/acc-include/
-    config-opts:
-      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-    sources:
-      - type: archive
-        url: https://github.com/zdoom/acc/archive/1.60.tar.gz
-        sha256: 39add3cb28491086f286896f56f2bcab23dc463d1bf387f90f462c11a167c0ab
-      # This script is a workaround for some very iffy file manager
-      - type: script
-        commands:
-          - acc "$@"
-        dest-filename: acc.sh
-
-  - name: glad
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-      - -DBUILD_SHARED_LIBS=true
-      - -DGLAD_REPRODUCIBLE=true
-      - -DGLAD_INSTALL=true
-    sources:
-      - type: archive
-        url: https://github.com/Dav1dde/glad/archive/refs/tags/v0.1.36.tar.gz
-        sha256: 8470ed1b0e9fbe88e10c34770505c8a1dc8ccb78cadcf673331aaf5224f963d2
-
-  # Build wxWidgets using git to include submodules
-  - name: wxwidgets
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DwxUSE_LIBWEBP=sys
-      - -DwxUSE_LIBPNG=sys
-      - -DwxUSE_ZLIB=sys
-      - -DwxUSE_EXPAT=sys
-    sources:
-      - type: git
-        url: https://github.com/wxWidgets/wxWidgets
-        tag: v3.3.1
-        commit: 49c6810948f40c457e3d0848b9111627b5b61de5
-        x-checker-data:
-          type: anitya
-          project-id: 5150
-          stable-only: true
-          tag-template: v$version
-
-  # Patches have been reported upstream
-  # https://github.com/sirjuddington/SLADE/issues/1111
-  - name: slade
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-      - -DBUILD_PK3=ON
-      - -DWX_GTK3=ON
-    sources:
-      - type: file
-        path: patches/FindWebP.cmake
-        dest: cmake/find_modules
-      - type: git
-        url: https://github.com/sirjuddington/SLADE.git
-        tag: 3.2.9
-        commit: 76c922d511d61dde61cd43606217316b1f424de1
-        x-checker-data:
-          type: git
-          tag-pattern: ^([\d.]+)$
-
-  - name: slade-cfg
-    buildsystem: simple
-    build-commands:
-      - install -Dm0755 slade3.sh "${FLATPAK_DEST}/bin/slade3.sh"
-      - install -Dm0644 slade3.cfg "${FLATPAK_DEST}/bin/slade3.cfg"
+      - install -Dm0755 slade3.sh /app/bin/slade3.sh
+      - install -Dm 644 net.mancubus.SLADE.desktop -t /app/share/applications
+      - install -Dm 644 net.mancubus.SLADE.png -t /app/share/icons/hicolor/128x128/apps/resources/
+      - install -Dm 644 net.mancubus.SLADE.appdata.xml -t /app/share/metainfo
     sources:
       - type: file
         path: resources/slade3.sh
       - type: file
-        path: resources/slade3.cfg
+        path: resources/net.mancubus.SLADE.desktop
+      - type: file
+        path: resources/net.mancubus.SLADE.png
+      - type: file
+        path: resources/net.mancubus.SLADE.appdata.xml
 
