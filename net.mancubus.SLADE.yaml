@@ -1,7 +1,7 @@
 app-id: net.mancubus.SLADE
-runtime: org.gnome.Platform
-runtime-version: '49'
-sdk: org.gnome.Sdk
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
 
 command: slade3.sh
 finish-args:
