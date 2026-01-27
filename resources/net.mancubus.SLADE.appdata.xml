@@ -15,7 +15,9 @@
 	<url type="vcs-browser">https://github.com/sirjuddington/SLADE</url>
 	<launchable type="desktop-id">net.mancubus.SLADE.desktop</launchable>
 	<description>
-		This application is sunset, for two reasons:
+	    <p>
+			This application is sunset, for two reasons:
+		</p>
 		<p>
 			There is no Flathub maintainer anymore. Simply put, nobody is willing to invest their time. Idem for GZDoom, 
 			which is bundled with this version of SLADE but which is now also unmaintained.
