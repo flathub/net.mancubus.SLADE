@@ -40,6 +40,7 @@ modules:
       - install -Dm 644 net.mancubus.SLADE.desktop -t /app/share/applications
       - install -Dm 644 net.mancubus.SLADE.png -t /app/share/icons/hicolor/128x128/apps/resources/
       - install -Dm 644 net.mancubus.SLADE.appdata.xml -t /app/share/metainfo
+      - install -Dm 644 net.mancubus.SLADE.svg -t /app/share/icons/hicolor/scalable/apps/
     sources:
       - type: file
         path: resources/slade3.sh
@@ -49,4 +50,6 @@ modules:
         path: resources/net.mancubus.SLADE.png
       - type: file
         path: resources/net.mancubus.SLADE.appdata.xml
+      - type: file
+        path: resources/net.mancubus.SLADE.svg
 
